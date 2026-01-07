@@ -1,69 +1,44 @@
-// ===== app.js =====
-
-// ดึงชื่อจาก AuthPro
 const params = new URLSearchParams(window.location.search);
-const name =
-  params.get("name") ||
-  params.get("username") ||
-  "";
+const name = params.get("name");
 
-// ❌ ถ้าไม่มีชื่อเลย ให้กลับไป AuthPro
+// ❌ ถ้าไม่มี name
 if (!name) {
-  window.location.href = "https://www.authpro.com/auth/100000/";
+  document.body.innerHTML = `
+    <h2 style="text-align:center;margin-top:50px">
+      กรุณาเข้าสู่ระบบผ่าน AuthPro
+    </h2>
+  `;
+  throw new Error("No name");
 }
 
-// แสดงชื่อผู้ใช้งาน
-const welcome = document.getElementById("welcome");
-if (welcome) {
-  welcome.textContent = `ยินดีต้อนรับ ${name}`;
-}
+// แสดงชื่อ
+document.getElementById("welcome").textContent =
+  `ยินดีต้อนรับ ${name}`;
 
-// ปุ่ม "ข้อมูลของฉัน" (ตั้งทันที ไม่รอ fetch)
-const profileBtn = document.getElementById("profileBtn");
-if (profileBtn) {
-  profileBtn.href =
-    `profile.html?name=${encodeURIComponent(name)}`;
-}
+// ปุ่มข้อมูลของฉัน
+document.getElementById("profileBtn").href =
+  `profile.html?name=${encodeURIComponent(name)}`;
 
-// 🔐 กลุ่ม role ที่ถือว่าเป็นระดับจัดการ
-const MANAGER_ROLES = [
-  "Manager",
-  "Admin",
-  "Owner",
-  "Supervisor"
-];
+// Logout
+document.getElementById("logoutBtn").onclick = () => {
+  window.location.href = "https://www.authpro.com/auth/100000/?action=logoutt";
+};
 
-// โหลดข้อมูลผู้ใช้จาก JSON
+// role ที่ถือว่าเป็น Manager
+const MANAGER_ROLES = ["Manager", "HOA", "HOD", "HOE", "MD", "Admin", "Owner", "Supervisor"];
+
+// โหลด users.json
 fetch("data/users.json")
   .then(res => res.json())
   .then(users => {
     const user = users[name];
 
-    // ถ้าไม่มีในระบบ
-    if (!user) {
-      console.warn("ไม่พบข้อมูลผู้ใช้ใน users.json");
-      return;
-    }
+    if (!user) return;
 
-    // แสดงปุ่ม Manager ถ้ามีสิทธิ์
+    // ถ้าเป็น Manager → โชว์ปุ่ม
     if (MANAGER_ROLES.includes(user.role)) {
-      const managerBtn = document.getElementById("managerBtn");
-      if (managerBtn) {
-        managerBtn.style.display = "inline-block";
-        managerBtn.href =
-          `manager.html?name=${encodeURIComponent(name)}`;
-      }
+      const btn = document.getElementById("managerBtn");
+      btn.style.display = "inline-block";
+      btn.href = `manager.html?name=${encodeURIComponent(name)}`;
     }
-  })
-  .catch(err => {
-    console.error("โหลด users.json ไม่ได้", err);
   });
-
-// 🚪 Logout กลับ AuthPro
-const logoutBtn = document.getElementById("logoutBtn");
-if (logoutBtn) {
-  logoutBtn.onclick = () => {
-    window.location.href =
-      "https://www.authpro.com/auth/100000/?action=logout";
-  };
-}
