@@ -21,7 +21,7 @@ document.getElementById("profileBtn").href =
 
 // Logout
 document.getElementById("logoutBtn").onclick = () => {
-  window.location.href = "https://www.authpro.com/auth/100000/?action=logoutt";
+  window.location.href = "https://www.authpro.com/auth/100000/?action=logout";
 };
 
 // role ที่ถือว่าเป็น Manager
