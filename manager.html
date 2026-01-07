@@ -11,16 +11,9 @@
   <h1>Manager Panel</h1>
   <div id="staffList" class="card"></div>
 
-  <a href="index.html" class="btn">← กลับ Dashboard</a>
+  <a id="backBtn" class="btn">← กลับ Dashboard</a>
 </div>
 
 <script src="manager.js"></script>
-
-<script>
-  const params = new URLSearchParams(window.location.search);
-  const name = params.get("name") || "";
-  document.getElementById("backBtn").href =
-    `index.html?name=${encodeURIComponent(name)}`;
-</script>
 </body>
 </html>
