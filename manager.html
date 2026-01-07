@@ -15,5 +15,12 @@
 </div>
 
 <script src="manager.js"></script>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const name = params.get("name") || "";
+  document.getElementById("backBtn").href =
+    `index.html?name=${encodeURIComponent(name)}`;
+</script>
 </body>
 </html>
