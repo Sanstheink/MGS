@@ -2,24 +2,37 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <title>ข้อมูลพนักงาน</title>
+  <title>My Profile</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
   <h1>ข้อมูลของฉัน</h1>
+  <div id="profileBox" class="card"></div>
 
-  <div class="card">
-    <h2 id="name"></h2>
-    <p id="role"></p>
-    <p id="org"></p>
-    <p id="email"></p>
-  </div>
-
-  <a href="index.html" class="btn">← กลับ Dashboard</a>
+  <a id="backBtn" class="btn">← กลับ</a>
 </div>
 
-<script src="profile.js"></script>
+<script>
+const params = new URLSearchParams(window.location.search);
+const name = params.get("name");
+
+document.getElementById("backBtn").href =
+  `index.html?name=${encodeURIComponent(name)}`;
+
+fetch("data/users.json")
+  .then(r => r.json())
+  .then(users => {
+    const u = users[name];
+    document.getElementById("profileBox").innerHTML = `
+      <p><b>ชื่อ:</b> ${name}</p>
+      <p><b>ตำแหน่ง:</b> ${u?.role || "-"}</p>
+      <p><b>หน่วยงาน:</b> ${u?.org || "-"}</p>
+      <p><b>Email:</b> ${u?.email || "-"}</p>
+    `;
+  });
+</script>
+
 </body>
 </html>
