@@ -1,19 +1,149 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <title>Manager Panel</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oceana Operation Central</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      display: flex;
+      flex-direction: column;
+      color: #fff;
+    }
+
+    header {
+      padding: 24px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      background: rgba(0,0,0,0.35);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .dashboard {
+      width: 100%;
+      max-width: 1000px;
+      background: rgba(0,0,0,0.45);
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    }
+
+    .welcome {
+      font-size: 22px;
+      margin-bottom: 6px;
+    }
+
+    .role {
+      font-size: 14px;
+      opacity: 0.85;
+      margin-bottom: 30px;
+    }
+
+.grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #ff9800, #ff5722);
+      border: none;
+      border-radius: 14px;
+      padding: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+    }
+
+    .btn:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    }
+
+    .btn.secondary {
+      background: linear-gradient(135deg, #03a9f4, #0288d1);
+    }
+
+    .btn.danger {
+      background: linear-gradient(135deg, #e53935, #b71c1c);
+    }
+
+    footer {
+      text-align: center;
+      padding: 14px 10px;
+      font-size: 12px;
+      opacity: 0.75;
+      background: rgba(0,0,0,0.35);
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
-  <h1>Manager Panel</h1>
-  <div id="staffList" class="card"></div>
+  <header>
+    Oceana Operation Central
+  </header>
 
-  <a id="backBtn" class="btn">← กลับ Dashboard</a>
-</div>
+  <main>
+    <div class="dashboard">
+      <div class="welcome">ยินดีต้อนรับ, <b id="username">Manager</b></div>
+      <div class="role">Manager Panel / Global Services</div>
 
-<script src="manager.js"></script>
+      <div class="grid">
+        <button class="btn" onclick="go('users')">👤 จัดการผู้ใช้</button>
+        <button class="btn" onclick="go('staff')">🧑‍💼 จัดการพนักงาน</button>
+        <button class="btn" onclick="go('hr')">📋 ระบบ HR</button>
+        <button class="btn secondary" onclick="go('reports')">📊 รายงาน / Logs</button>
+        <button class="btn secondary" onclick="go('settings')">⚙️ ตั้งค่าระบบ</button>
+        <button class="btn secondary" onclick="go('academy')">🎓 Oceana Academy</button>
+        <button class="btn secondary" onclick="go('community')">🌐 KP9 Community</button>
+        <button class="btn danger" onclick="logout()">🚪 Logout</button>
+      </div>
+    </div>
+  </main>
+  <footer>
+    KP9community | Oceana Academy | Oceana Operation Central | all right
+  </footer>
+
+  <script>
+    // เปลี่ยนเส้นทางหน้า (คุณเอาไปผูกกับ backend จริงได้)
+    function go(page) {
+      alert('ไปหน้า: ' + page);
+      // window.location.href = '/' + page;
+    }
+
+    function logout() {
+      window.location.href = '/login';
+    }
+
+    // ตัวอย่างดึงชื่อผู้ใช้จาก backend / localStorage
+    const savedUser = localStorage.getItem('username');
+    if (savedUser) {
+      document.getElementById('username').innerText = savedUser;
+    }
+  </script>
+
 </body>
 </html>
