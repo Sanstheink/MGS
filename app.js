@@ -9,7 +9,7 @@ const name =
 
 // ❌ ถ้าไม่มีชื่อเลย ให้กลับไป AuthPro
 if (!name) {
-  window.location.href = "https://authpro.com/login";
+  window.location.href = "https://www.authpro.com/auth/100000/";
 }
 
 // แสดงชื่อผู้ใช้งาน
