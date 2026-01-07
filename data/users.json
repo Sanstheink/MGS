@@ -2,14 +2,13 @@
   "Oceana Operation central": {
     "fullname": "OOC Manager",
     "role": "Manager",
-    "org": "Global Services",
-    "Employee_ID": "000000",
+    "org": "Global Services"
     "email": ""
   },
   "pond": {
     "fullname": "POND",
     "role": "HOE",
-    "email": "",
-    "Employee_ID": "1200322",
+    "email": ""
+   
   }
 }
