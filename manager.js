@@ -4,7 +4,7 @@ const name = params.get("name");
 document.getElementById("backBtn").href =
   `index.html?name=${encodeURIComponent(name)}`;
 
-const MANAGER_ROLES = ["Manager", "Admin", "Owner", "Supervisor"];
+const MANAGER_ROLES = ["Manager", "HOA", "HOD", "HOE", "MD", "Admin", "Owner", "Supervisor"];
 
 fetch("data/users.json")
   .then(r => r.json())
